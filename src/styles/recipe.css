@@ -1,0 +1,15 @@
+.vertical {
+    margin: 5%;
+    min-width: 45px;
+    height: 200 px;    
+    
+}
+
+.textformat {
+    margin: 5%;
+    font-size: 2ch;
+    padding: 2%;
+    background-color: wheat;
+    
+    
+}
