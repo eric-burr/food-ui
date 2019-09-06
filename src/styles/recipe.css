@@ -11,5 +11,19 @@
     padding: 2%;
     background-color: wheat;
     
+}
+
+.recipe {
+    align-content: center;
+    margin-left: 45%;
+    
+}
+
+.link {
+    position: fixed;
+    top: 4%;
+    right: 4%;
+    color: black;
+    font-size: 2ch;
     
 }

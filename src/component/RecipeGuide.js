@@ -1,11 +1,16 @@
 import React, {Component} from "react"
 import '../styles/recipe.css'
+import { Link } from "react-router-dom"
+
+
 // const url = "http://localhost:4000/"
 class Recipe extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            CompletedRecipe: []
+            CompletedRecipe: [],
+            Pantry: []
+            
         }
     }
 
@@ -28,12 +33,6 @@ class Recipe extends Component {
 
     onSubmit = e => {     //i am trying to send the inputted string to the api so the api can look at it and then look at the 
         e.preventDefault();
-        // fetch("http://localhost:4000/", {
-        //     method: "GET",
-        //     headers: {'Content-Type': 'application/json'}
-        // }).then(console.log)
-
-        
         fetch("http://localhost:4000/", {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
@@ -43,7 +42,8 @@ class Recipe extends Component {
         .then(data => this.setState ({
             CompletedRecipe: data
         }))  
-        
+
+        this.state.Pantry.push(this.state.ingredient);
         
     }
 
@@ -58,12 +58,9 @@ class Recipe extends Component {
                 <div>
                     <form onSubmit={this.onSubmit}>
                         <h1>What's for Dinner?</h1>
-                        <p className="textformat">Here at What's for Dinner we believe that making dinner could be easy and fun!
-                            Sometimes its hard to know what to make, because we have so many items in the kitchen
-                            pantry and fridge. Now you can enter what you have and we will tell you what you need to make 
-                            dinner!
-                        </p>
-                        <input type="text" placeholder="ingredient" name="ingredient" onChange={this.handlechange} />
+                        <p></p>
+                       
+                        <input id="cheese" type="text" placeholder="ingredient" name="ingredient" onChange={this.handlechange} />
                         <br />
                         <input type="text" placeholder="ingredient" name="ingredient1" onChange={this.handlechange} />
                         <br />
@@ -75,7 +72,7 @@ class Recipe extends Component {
 
                     </form> 
                     
-                    <h1>
+                    <h1 className="recipe">
                         You still need: {this.state.CompletedRecipe.map((ingredient, index) => {
                              console.log(ingredient)
                             return (
@@ -84,6 +81,8 @@ class Recipe extends Component {
                             )}
                        
                     </h1>
+
+                    <Link className="link" to="/">Back Home</Link>
                 </div>
             
         )
