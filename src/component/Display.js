@@ -52,7 +52,7 @@ const customStyles = {
             <div>
                     {/* {this.state.id} */}
                     {this.state.name}
-                    <button onClick={() => this.setState({modalOpen: true})}>Update</button>
+                    <button onClick={() => this.setState({modalOpen: true})}>Edit</button>
                     <Modal
                     isOpen={this.state.modalOpen}
                     // onAfterOpen={this.afterOpenModal}
@@ -60,15 +60,16 @@ const customStyles = {
                     style={customStyles}
                     contentLabel="Example Modal"
                      >
-                          <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
-                        <button onClick={this.closeModal}>close</button>
-                        <div>I am a modal</div>
+                        
                         <form>
-                            <input />
-                            <button>tab navigation</button>
-                            <button>stays</button>
-                            <button>inside</button>
-                            <button>the modal</button>
+                            <label for="name">Update</label>
+                            <input type="text" name="name"/>
+                            <button onclick={this.updateUser}>update</button>
+                            <br />
+                            <label for="name">Delete Me</label>
+                            <button onclick={this.deleteUser}>update</button>
+                            <br />
+                            <button onClick={this.closeModal}>close</button>
                         </form>
                      </Modal>
             </div>

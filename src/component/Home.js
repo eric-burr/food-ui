@@ -7,8 +7,7 @@ class Home extends Component{
     constructor(props){
         super(props)
         this.state = {
-            
-            newUser: '',
+            newUser: ''
             
         }
      }
@@ -23,23 +22,29 @@ class Home extends Component{
         .then(data => data.json())
         .then(data => data.map((data) => <Display info={data}/> //info is being passed to display
             
-        )).then(data => {
+        ))
+        .then(data => {
             this.setState({newUser: data})
         })
        
     }   
     
 createUser = e => {
+const body = {
+    name : this.state.name
+}
     e.preventDefault();
     fetch("http://localhost:4000/users", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(this.state)
+        body: JSON.stringify(body)
     })
+    window.location.reload(false)
 }
 
     userChange = ({target}) => {
         this.setState({ [target.name]: target.value});
+        console.log("looking at", this.state.newUser)
 }
 
     render(){
