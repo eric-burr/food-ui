@@ -46,8 +46,19 @@ const customStyles = {
         })
     }
 
+    deleteUser = id => {
+        console.log("is this working", id)
+        fetch(`http://localhost:4000/delete/${id}`, {
+            method: "DELETE",
+            headers: {"Content-Type": "appplication/json"}
+        })
+        .then(this.closeModal)
+        .then(() => {window.location.reload(false)})
+    }
+
 
     render(){
+        
         return (
             <div>
                     {/* {this.state.id} */}
@@ -67,7 +78,7 @@ const customStyles = {
                             <button onclick={this.updateUser}>update</button>
                             <br />
                             <label for="name">Delete Me</label>
-                            <button onclick={this.deleteUser}>update</button>
+                            <input type="button" onClick={() => this.deleteUser(this.state.id)} value="delete" />
                             <br />
                             <button onClick={this.closeModal}>close</button>
                         </form>
