@@ -4,7 +4,6 @@ import React from 'react';
 // import Form from "./component/Form"
 // import ReactDOM from 'react-dom'
 import Routing from "./component/Routing"
-import { Link } from 'react-router-dom';
 
 
 function App() {
