@@ -44,7 +44,6 @@ const body = {
 
     userChange = ({target}) => {
         this.setState({ [target.name]: target.value});
-        console.log("looking at", this.state.newUser)
 }
 
     render(){

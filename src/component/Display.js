@@ -25,29 +25,21 @@ const customStyles = {
         }
     }
 
-    // openModal() {
-    //     this.setState({modalIsOpen: true});
-    //   }
-     
-    //   afterOpenModal() {
-    //     // references are now sync'd and can be accessed.
-    //     this.subtitle.style.color = '#f00';
-    //   }
-     
-    //   closeModal() {
-    //     this.setState({modalIsOpen: false});
-    //   }
 
-    updateUser = e => {
-        fetch("http://localhost:4000/update/", {
+    updateUser = id => {
+        const body = {
+            name: this.state.name
+        }
+        fetch(`http://localhost:4000/update/${id}`, {
         method: "PUT",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(this.state)
+        body: JSON.stringify(body)
         })
+        .then(this.closeModal)
+        .then(() => {window.location.reload(false)})
     }
 
     deleteUser = id => {
-        console.log("is this working", id)
         fetch(`http://localhost:4000/delete/${id}`, {
             method: "DELETE",
             headers: {"Content-Type": "appplication/json"}
@@ -55,6 +47,9 @@ const customStyles = {
         .then(this.closeModal)
         .then(() => {window.location.reload(false)})
     }
+    updateChange = ({target}) => {
+        this.setState({ [target.name]: target.value});
+}
 
 
     render(){
@@ -74,8 +69,8 @@ const customStyles = {
                         
                         <form>
                             <label for="name">Update</label>
-                            <input type="text" name="name"/>
-                            <button onclick={this.updateUser}>update</button>
+                            <input type="text" name="name" onChange={this.updateChange} />
+                            <input type="button" onclick={() => this.updateUser(this.state.id)} value="update"/>
                             <br />
                             <label for="name">Delete Me</label>
                             <input type="button" onClick={() => this.deleteUser(this.state.id)} value="delete" />
