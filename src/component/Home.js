@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import { Link } from "react-router-dom"
 import Display from './Display'
 // import { pathToFileURL } from 'url';
-export const baseUrl = "http://localhost:4000"
+// export const baseUrl = "http://localhost:4000"
+export const baseUrl = "https://foodapi2.herokuapp.com"
 
 class Home extends Component{
     constructor(props){
@@ -31,21 +32,21 @@ class Home extends Component{
     }   
     
 createUser = e => {
+    e.preventDefault();
     //the 'state' of the values i want to send to db from the input field
 const body = {
     name : this.state.name,
     password: this.state.password,
     email: this.state.email
 }
-
-    e.preventDefault();
-    fetch(`${baseUrl}/`, {
+console.log(body)
+    fetch(`${baseUrl}/users`, {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body)
     })
     // gives submit button the submit feel
-    window.location.reload(false)
+    .then(() => window.location.reload(false))
 }
 
     userChange = ({target}) => {
@@ -66,7 +67,7 @@ const body = {
                     <label >Email</label>
                     <input type="email" name="email" placeholder="email" onChange={this.userChange}/><br/><br/>
                     <label >Enter</label>
-                    <button type="submit" name="submit">Submit</button>
+                    <button type="submit" name="submit">This is the button!</button>
                 </form>  
 
                 <div>
