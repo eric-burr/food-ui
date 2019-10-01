@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import Modal from 'react-modal';
+// import ReactDOM from 'react-dom'
+import {baseUrl} from './Home'
 Modal.setAppElement('#root')
 
 
@@ -25,12 +27,12 @@ const customStyles = {
         }
     }
 
-
     updateUser = id => {
         const body = {
             name: this.state.name
         }
-        fetch(`http://localhost:4000/update/${id}`, {
+        console.log("this is the id", id)
+        fetch(`${baseUrl}/update/${id}`, {
         method: "PUT",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body)
@@ -40,16 +42,17 @@ const customStyles = {
     }
 
     deleteUser = id => {
-        fetch(`http://localhost:4000/delete/${id}`, {
+        fetch(`${baseUrl}/delete/${id}`, {
             method: "DELETE",
             headers: {"Content-Type": "appplication/json"}
         })
         .then(this.closeModal)
         .then(() => {window.location.reload(false)})
     }
+
     updateChange = ({target}) => {
         this.setState({ [target.name]: target.value});
-}
+    }
 
 
     render(){
@@ -68,11 +71,11 @@ const customStyles = {
                      >
                         
                         <form>
-                            <label for="name">Update</label>
+                            <label>Update</label>
                             <input type="text" name="name" onChange={this.updateChange} />
-                            <input type="button" onclick={() => this.updateUser(this.state.id)} value="update"/>
+                            <input type="button" onClick={() => this.updateUser(this.state.id)} value="update"/>
                             <br />
-                            <label for="name">Delete Me</label>
+                            <label >Delete Me</label>
                             <input type="button" onClick={() => this.deleteUser(this.state.id)} value="delete" />
                             <br />
                             <button onClick={this.closeModal}>close</button>

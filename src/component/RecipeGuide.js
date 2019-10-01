@@ -1,7 +1,9 @@
 import React, {Component} from "react"
 import '../styles/recipe.css'
 import { Link } from "react-router-dom"
-import { pathToFileURL } from "url";
+// import { pathToFileURL } from "url";
+import { baseUrl } from "./Home";
+
 
 
 // const url = "http://localhost:4000/"
@@ -17,7 +19,7 @@ class Recipe extends Component {
 
     fetchData = () => {
         const headers = {'Content-Type': 'application/json'}
-        fetch("http://localhost:4000/", {
+        fetch(`${baseUrl}/`, {
             method: "GET",
             headers
         })
@@ -34,7 +36,7 @@ class Recipe extends Component {
     pantrySend = () => {
         // e.preventDefault();
         const pantry = {ingredient: this.state.ingredient}
-        fetch("http://localhost:4000/pantry", {
+        fetch(`${baseUrl}/`, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(pantry)
@@ -45,7 +47,7 @@ class Recipe extends Component {
 
     onSubmit = e => {     // i am trying to send the inputted string to the api so the api can look at it and then look at the 
         e.preventDefault();
-        fetch("http://localhost:4000/", {
+        fetch(`${baseUrl}/`, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(this.state)
