@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Link } from "react-router-dom"
 import Display from './Display'
 // import { pathToFileURL } from 'url';
-// export const baseUrl = "http://localhost:4000"
+// export const baseUrl = "http://localhost:4001"
 export const baseUrl = "https://foodapi2.herokuapp.com"
 
 class Home extends Component{
@@ -14,22 +14,22 @@ class Home extends Component{
         }
      }
     
-
     componentDidMount() {
         const headers = {'Content-Type': 'application/json'}
             fetch(`${baseUrl}/users`, {
             method: "GET",
             headers
         })
-        .then(data => data.json())
+        .then(res => res.json())
         .then(data => data.map((data) => <Display key={data._id} info={data}/> //info is being passed to display
             
         ))
+        
         .then(data => {
             this.setState({newUser: data})
-        })
+        });
        
-    }   
+    };   
     
 createUser = e => {
     e.preventDefault();
@@ -38,7 +38,7 @@ const body = {
     name : this.state.name,
     password: this.state.password,
     email: this.state.email
-}
+};
 console.log(body)
     fetch(`${baseUrl}/users`, {
         method: "POST",
@@ -46,7 +46,10 @@ console.log(body)
         body: JSON.stringify(body)
     })
     // gives submit button the submit feel
-    .then(() => window.location.reload(false))
+    .then(res => res.json())
+    .then(data => console.log("does this show in he console", data))
+    // .then((res) => console.log(res.body))
+    .then(() => window.location.reload(false)); //is this reloading the broswer?
 }
 
     userChange = ({target}) => {

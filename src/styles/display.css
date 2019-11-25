@@ -1,0 +1,23 @@
+.delete-button {
+    color: white;
+    background-color: rgb(238, 51, 51);
+    font-family: 'comic-sans';
+    font-weight: bold;
+}
+.update-button {
+    color: white;
+    background-color: rgb(68, 68, 221);
+    font-family: 'comic-sans';
+    font-weight: bold;
+    border-top-left-radius: 15%;
+    border-top-right-radius: 15%;
+    border-bottom-left-radius: 15%;
+    border-bottom-right-radius: 15%;
+}
+.line-height {
+    line-height: 1.6;
+}
+
+.background-modal {
+    background-color: bisque;
+}
