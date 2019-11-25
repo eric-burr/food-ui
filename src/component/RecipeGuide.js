@@ -42,16 +42,19 @@ class Recipe extends Component {
     // i am trying to send the inputted string to the api so the api can look at it and then look at the
     e.preventDefault();
     fetch(`${baseUrl}/ingredients`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }
-      // body: JSON.stringify(this.state)
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(this.state)
+      
     })
+    
       .then(data => data.json())
       .then(data =>
         this.setState({
           CompletedRecipe: data
         })
       )
+      
       .then(this.pantrySend());
 
     this.state.Pantry.push(this.state.ingredient);
@@ -101,18 +104,17 @@ class Recipe extends Component {
 
         <h1 className="recipe">
           You still need:{" "}
-          {this.state.CompletedRecipe.map((ingredient, index) => {
-            console.log(ingredient);
-            return <div>{ingredient}</div>;
-          })}
+          {this.state.CompletedRecipe.map((item, index) => 
+          
+          <li key={item+1}>{item}</li>
+          
+          // {
+          //   console.log(ingredient);
+          //   return <div>{ingredient}</div>;
+          // }
+          )}
         </h1>
-        <div>
-          <select>
-            <option></option>
-            <option>Pizza Dough</option>
-            <option>Pizza Sauce</option>
-          </select>
-        </div>
+        
 
         <Link className="link" to="/">
           Back Home

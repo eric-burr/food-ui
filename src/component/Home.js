@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import { Link } from "react-router-dom"
 import Display from './Display'
 // import { pathToFileURL } from 'url';
-// export const baseUrl = "http://localhost:4001"
-export const baseUrl = "https://foodapi2.herokuapp.com"
+export const baseUrl = "http://localhost:4001"
+// export const baseUrl = "https://foodapi2.herokuapp.com"
 
 class Home extends Component{
     constructor(props){
