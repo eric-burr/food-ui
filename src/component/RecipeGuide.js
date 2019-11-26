@@ -38,7 +38,14 @@ class Recipe extends Component {
     });
   };
 
+  
+
   onSubmit = e => {
+    //need multiple to be able to send more than one ingredient per click.
+    const food = {
+      food: this.state.ingredient,
+      food1: this.state.ingredient
+    }
     // i am trying to send the inputted string to the api so the api can look at it and then look at the
     e.preventDefault();
     fetch(`${baseUrl}/ingredients`, {
@@ -47,7 +54,7 @@ class Recipe extends Component {
       body: JSON.stringify(this.state)
       
     })
-    
+      
       .then(data => data.json())
       .then(data =>
         this.setState({
@@ -66,10 +73,12 @@ class Recipe extends Component {
 
   render() {
     return (
-      <div>
+      <div> 
         <form onSubmit={this.onSubmit}>
           <h1>What's for Dinner?</h1>
-          <p></p>
+          <p>Here is where you put what items you have 
+            in the kitchen right now
+          </p>
 
           <input
             type="text"
@@ -119,6 +128,7 @@ class Recipe extends Component {
         <Link className="link" to="/">
           Back Home
         </Link>
+        With those ingredients you can make..
       </div>
     );
   }
