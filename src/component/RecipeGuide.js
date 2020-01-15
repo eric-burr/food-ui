@@ -10,17 +10,20 @@ class Recipe extends Component {
     super(props);
     this.state = {
       CompletedRecipe: [],
-      Pantry: []
+      Feedback: [],
+      NewRecipe: []
+      // Pantry: []
     };
   }
 
   fetchData = () => {
     const headers = { "Content-Type": "application/json" };
-    fetch(`${baseUrl}/`, {
+    fetch(`${baseUrl}/ingredients`, {
       method: "GET",
       headers
     })
       .then(data => data.json())
+      .then(data => console.log("and the loser is", data))
       .then(data =>
         this.setState({
           CompletedRecipe: data
@@ -38,33 +41,30 @@ class Recipe extends Component {
     });
   };
 
-  
-
+getRecipe = e => {
+  e.preventDefault();
+  const body = {
+    name: this.state.recipeitem
+  };
+  fetch(`${baseUrl}/recipe`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  })
+  .then(res => res.json())
+  .then(data => console.log("wut about tis chikin salad", data))
+  .then(data => this.setState({NewRecipe: data}))
+};
+//onSubmit works, be CAREFUL!!! 
   onSubmit = e => {
-    //need multiple to be able to send more than one ingredient per click.
-    const food = {
-      food: this.state.ingredient,
-      food1: this.state.ingredient
-    }
-    // i am trying to send the inputted string to the api so the api can look at it and then look at the
     e.preventDefault();
     fetch(`${baseUrl}/ingredients`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(this.state)
-      
     })
-      
-      .then(data => data.json())
-      .then(data =>
-        this.setState({
-          CompletedRecipe: data
-        })
-      )
-      
-      .then(this.pantrySend());
-
-    this.state.Pantry.push(this.state.ingredient);
+      .then(res => res.json())
+      .then(data => this.setState({CompletedRecipe: data})) 
   };
 
   handlechange = ({ target }) => {
@@ -87,26 +87,7 @@ class Recipe extends Component {
             onChange={this.handlechange}
           />
           <br />
-          <input
-            type="text"
-            placeholder="ingredient"
-            name="ingredient1"
-            onChange={this.handlechange}
-          />
-          <br />
-          <input
-            type="text"
-            placeholder="ingredient"
-            name="ingredient2"
-            onChange={this.handlechange}
-          />
-          <br />
-          <input
-            type="text"
-            placeholder="ingredient"
-            name="ingredient3"
-            onChange={this.handlechange}
-          />
+          
           <br />
           <button type="submit">crack that egg!</button>
         </form>
@@ -114,21 +95,26 @@ class Recipe extends Component {
         <h1 className="recipe">
           You still need:{" "}
           {this.state.CompletedRecipe.map((item, index) => 
-          
-          <li key={item+1}>{item}</li>
-          
-          // {
-          //   console.log(ingredient);
-          //   return <div>{ingredient}</div>;
-          // }
+            <li key={item+1}>{item}</li>
           )}
         </h1>
-        
+        <div>
+              <form onSubmit={this.getRecipe}>
+              Getting a recipe based off of ingredients coming back..
+              <input type="text" name="recipeitem" onChange={this.handlechange}/>
+              <button>Stir the egg</button>
+              </form>
+          </div>
+          
+          {/* <div> why isnt this working
+            {this.state.Feedback.map((item) =>
+             <li key={item+1}>{item}</li> 
+              )}
+          </div> */}
 
         <Link className="link" to="/">
           Back Home
         </Link>
-        With those ingredients you can make..
       </div>
     );
   }

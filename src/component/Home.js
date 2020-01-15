@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import { Link } from "react-router-dom"
 import Display from './Display'
 // import { pathToFileURL } from 'url';
-export const baseUrl = "http://localhost:4001"
-// export const baseUrl = "https://foodapi2.herokuapp.com"
+// export const baseUrl = "http://localhost:4001"
+export const baseUrl = "https://foodapi2.herokuapp.com"
 
 class Home extends Component{
     constructor(props){
@@ -22,7 +22,6 @@ class Home extends Component{
         })
         .then(res => res.json())
         .then(data => data.map((data) => <Display key={data._id} info={data}/> //info is being passed to display
-            
         ))
         
         .then(data => {
@@ -33,13 +32,11 @@ class Home extends Component{
     
 createUser = e => {
     e.preventDefault();
-    //the 'state' of the values i want to send to db from the input field
 const body = {
     name : this.state.name,
     password: this.state.password,
     email: this.state.email
 };
-console.log(body)
     fetch(`${baseUrl}/users`, {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -48,7 +45,6 @@ console.log(body)
     // gives submit button the submit feel
     .then(res => res.json())
     .then(data => console.log("does this show in he console", data))
-    // .then((res) => console.log(res.body))
     .then(() => window.location.reload(false)); //is this reloading the broswer?
 }
 
